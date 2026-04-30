@@ -75,3 +75,4 @@ function submitOrder() {
 
 // RUN
 loadProducts();
+alert("BOTTOM OF FILE RUNNING");

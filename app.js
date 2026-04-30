@@ -3,13 +3,43 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 // LOAD PRODUCTS
 async function loadProducts() {
-  let res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`, {
-    headers: {
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`,
-      "Content-Type": "application/json"
-    }
-  });
+  try {
+    alert("Fetching products...");
+
+    let res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`, {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    alert("Response status: " + res.status);
+
+    let data = await res.json();
+
+    alert("Data length: " + data.length);
+
+    console.log(data);
+
+    let html = "";
+
+    data.forEach(p => {
+      html += `
+        <div>
+          ${p.name}
+          <input type="number" placeholder="Qty">
+        </div>
+      `;
+    });
+
+    document.getElementById("products").innerHTML = html;
+
+  } catch (err) {
+    alert("Error: " + err.message);
+    console.error(err);
+  }
+}
 
   let data = await res.json();
 
